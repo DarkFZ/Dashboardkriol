@@ -1,0 +1,2 @@
+# Dashboardkriol
+dashboard do kriolsync
