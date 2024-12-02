@@ -1,0 +1,156 @@
+<html>
+
+<head>
+  <base href="." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KriolSync - Smart Home Control</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="light-mode">
+  <div class="container">
+    <div class="header">
+      <div class="logo-container">
+        <svg class="kriol-logo" viewBox="0 0 100 100">
+          <circle class="logo-circle" cx="50" cy="50" r="45" />
+          <path class="logo-k" d="M35,20 v60 M35,50 L65,20 M35,50 L65,80" fill="none" stroke="currentColor"
+            stroke-width="8" stroke-linecap="round" />
+          <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="4" />
+        </svg>
+        <h1>KriolSync</h1>
+      </div>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div>
+          <span class="status-indicator status-online"></span>
+          ESP8266 Connected
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path
+            d="M12,15c-1.95,0-3.5-1.55-3.5-3.5S10.05,8,12,8s3.5,1.55,3.5,3.5S13.95,15,12,15z M12,9c-1.38,0-2.5,1.12-2.5,2.5 s1.12,2.5,2.5,2.5s2.5-1.12,2.5-2.5S13.38,9,12,9z M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20 c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S16.41,20,12,20z" />
+        </svg>
+        <h3>Temperature</h3>
+        <div class="sensor-value">24.5°C</div>
+        <div class="chart-container">
+          <canvas id="tempChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path
+            d="M12,1L3,5v6c0,5.55,3.84,10.74,9,12c5.16-1.26,9-6.45,9-12V5L12,1z M12,11.99h7c-0.53,4.12-3.28,7.79-7,8.94V12H5V6.3 l7-3.11v8.8z" />
+        </svg>
+        <h3>Humidity</h3>
+        <div class="sensor-value">65%</div>
+        <div class="chart-container">
+          <canvas id="humidChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path
+            d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" />
+        </svg>
+        <h3>Lighting</h3>
+        <button class="circular-button" onclick="confirmLightToggle(this)" data-control="lighting"></button>
+        <div class="button-status">OFF</div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path d="M3,11H13V3H3M3,21H13V13H3M15,21H21V15H15M15,13H21V3H15V9" />
+        </svg>
+        <h3>Smart Light Control</h3>
+        <button class="circular-button" onclick="confirmLightToggle(this)" data-control="smart-lighting"></button>
+        <div class="motion-indicator">
+          <div class="motion-dot" id="motionDot"></div>
+          <svg viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+            <path
+              d="M13.5,5.5c1.1,0,2-0.9,2-2s-0.9-2-2-2s-2,0.9-2,2S12.4,5.5,13.5,5.5z M20,12.5V23h-2v-8.5h-4V23h-2v-7.5H7V23H5V9c0-1.1,0.9-2,2-2h10c1.1,0,2,0.9,2,2v3.5H20z" />
+          </svg>
+          <span>Motion Sensor</span>
+        </div>
+        <div class="location-time" id="locationTime"></div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path d="M16,7V3h-2v4h-4V3H8v4H6v7.5L8,18v3h8v-3l2-3.5V7H16z M14,18h-4v-1h4V18z" />
+        </svg>
+        <h3>Power Outlet 1</h3>
+        <button class="circular-button" onclick="confirmLightToggle(this)" data-control="outlet-1"></button>
+        <div class="button-status">OFF</div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path d="M16,7V3h-2v4h-4V3H8v4H6v7.5L8,18v3h8v-3l2-3.5V7H16z M14,18h-4v-1h4V18z" />
+        </svg>
+        <h3>Power Outlet 2</h3>
+        <button class="circular-button" onclick="confirmLightToggle(this)" data-control="outlet-2"></button>
+        <div class="button-status">OFF</div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path
+            d="M17,10.5V7c0-0.55-0.45-1-1-1H4c-0.55,0-1,0.45-1,1v10c0,0.55,0.45,1,1,1h12c0.55,0,1-0.45,1-1v-3.5l4,4v-11L17,10.5z" />
+        </svg>
+        <h3>Video Surveillance</h3>
+        <div id="videoFeed"
+          style="width: 100%; height: 200px; background: #000; border-radius: 8px; margin: 10px 0; display: flex; align-items: center; justify-content: center; color: #666;">
+          Video Feed
+        </div>
+        <button class="circular-button" onclick="confirmLightToggle(this)" data-control="camera"></button>
+        <div class="button-status">OFF</div>
+      </div>
+
+      <div class="card">
+        <svg class="sensor-icon" viewBox="0 0 24 24">
+          <path
+            d="M12,11C11.45,11 11,11.45 11,12C11,12.55 11.45,13 12,13C12.55,13 13,12.55 13,12C13,11.45 12.55,11 12,11M12.5,2C17,2 17.11,5.57 14.75,6.75C13.76,7.24 13.32,8.29 13.13,9.22C13.61,9.42 14.03,9.73 14.35,10.13C18.05,8.13 22.03,8.92 22.03,12.5C22.03,17 18.46,17.1 17.28,14.73C16.78,13.74 15.72,13.3 14.79,13.11C14.59,13.59 14.28,14.01 13.88,14.33C15.87,18.03 15.08,22 11.5,22C7,22 6.91,18.42 9.27,17.24C10.25,16.75 10.69,15.71 10.89,14.79C10.4,14.59 9.97,14.27 9.65,13.87C5.96,15.85 2,15.07 2,11.5C2,7 5.56,6.89 6.74,9.26C7.24,10.25 8.29,10.68 9.22,10.87C9.41,10.39 9.73,9.97 10.14,9.65C8.15,5.96 8.94,2 12.5,2Z" />
+        </svg>
+        <h3>Fan Control</h3>
+        <button class="circular-button" onclick="confirmLightToggle(this)" data-control="fan"></button>
+        <div class="button-status">OFF</div>
+        <div class="fan-speed-control">
+          <label>Speed:</label>
+          <input type="range" min="0" max="3" value="0" class="speed-slider" id="fanSpeed" disabled>
+          <div class="speed-labels">
+            <span>Off</span>
+            <span>Low</span>
+            <span>Med</span>
+            <span>High</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="confirmation-dialog" id="confirmDialog">
+    <h4>Confirm Action</h4>
+    <p>Are you sure you want to toggle this device?</p>
+    <button onclick="executeLightToggle()">Confirm</button>
+    <button onclick="cancelLightToggle()">Cancel</button>
+  </div>
+  <h1>Sensores</h1>
+  <ul id="sensores-list"></ul>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/fetchStates.js"></script>
+  <script src="js/main.js"></script>
+
+
+</body>
+
+</html>

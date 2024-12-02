@@ -1,0 +1,143 @@
+:root {
+    --bg-light: #f0f2f5;
+    --text-light: #2c3e50;
+    --primary-light: #3498db;
+    --secondary-light: #2ecc71;
+    --card-light: #ffffff;
+
+    --bg-dark: #1a1a2e;
+    --text-dark: #e0e0e0;
+    --primary-dark: #2980b9;
+    --secondary-dark: #27ae60;
+    --card-dark: #16213e;
+}
+
+#body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.light-mode {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+}
+
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.light-mode .login-container {
+    background-color: var(--card-light);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .login-container {
+    background-color: var(--card-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.kriol-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.light-mode .kriol-logo .logo-circle {
+    fill: var(--primary-light);
+}
+
+.dark-mode .kriol-logo .logo-circle {
+    fill: var(--primary-dark);
+}
+
+.light-mode .kriol-logo .logo-k {
+    fill: var(--text-light);
+}
+
+.dark-mode .kriol-logo .logo-k {
+    fill: var(--text-dark);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: transparent;
+    color: inherit;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--primary-light);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode button {
+    background: var(--primary-dark);
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.theme-toggle1 {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    width: auto;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 10px;
+    text-align: center;
+    display: none;
+}
+
+.dash {
+    background-color: #16213e;
+    margin: 1rem 0 0 0 ;
+}

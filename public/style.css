@@ -1,0 +1,347 @@
+
+:root {
+  --bg-light: #f0f2f5;
+  --text-light: #2c3e50;
+  --primary-light: #3498db;
+  --secondary-light: #2ecc71;
+  --card-light: #ffffff;
+
+  --bg-dark: #1a1a2e;
+  --text-dark: #e0e0e0;
+  --primary-dark: #2980b9;
+  --secondary-dark: #27ae60;
+  --card-dark: #16213e;
+}
+
+/* Add to the existing style section */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.kriol-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-container h1 {
+  margin: 0;
+}
+
+.light-mode .kriol-logo .logo-circle {
+  fill: var(--primary-light);
+}
+
+.dark-mode .kriol-logo .logo-circle {
+  fill: var(--primary-dark);
+}
+
+.light-mode .kriol-logo .logo-k {
+  fill: var(--text-light);
+}
+
+.dark-mode .kriol-logo .logo-k {
+  fill: var(--text-dark);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+}
+
+body.light-mode {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  filter: drop-shadow(3px 3px 3px --primary-dark);
+  cursor: pointer;
+  font-size: 24px;
+  padding: 10px;
+}
+.theme-toggle.dark-mode{
+  filter: drop-shadow(3px 3px 3px --primary-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.light-mode .card {
+  background-color: var(--card-light);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .card {
+  background-color: var(--card-dark);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.sensor-value {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.sensor-icon {
+  width: 40px;
+  height: 40px;
+  fill: currentColor;
+}
+
+.chart-container {
+  height: 300px;
+  margin-top: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: var(--secondary-light);
+}
+
+input:checked+.slider:before {
+  transform: translateX(26px);
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.status-online {
+  background-color: #2ecc71;
+}
+
+.status-offline {
+  background-color: #e74c3c;
+}
+
+.circular-button {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary-dark));
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(41, 128, 185, 0.3);
+  display: block;
+  margin: 10px auto;
+}
+
+.button-status {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.dark-mode .circular-button {
+  background: radial-gradient(circle at 30% 30%, var(--primary-dark), #1a1a2e);
+}
+
+.circular-button::after {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--card-light);
+  top: 5px;
+  left: 5px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .circular-button::after {
+  background: var(--card-dark);
+}
+
+.circular-button.active {
+  box-shadow: 0 0 30px rgba(41, 128, 185, 0.6);
+}
+
+.circular-button.active::after {
+  background: var(--secondary-light);
+}
+
+.dark-mode .circular-button.active::after {
+  background: var(--secondary-dark);
+}
+
+.confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card-light);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 1000;
+}
+
+.dark-mode .confirmation-dialog {
+  background: var(--card-dark);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 999;
+}
+
+.motion-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.motion-indicator svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.motion-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e74c3c;
+  transition: all 0.3s ease;
+}
+
+.motion-active {
+  background: #2ecc71;
+  box-shadow: 0 0 10px #2ecc71;
+}
+
+.location-time {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: var(--text-light);
+}
+
+.dark-mode .location-time {
+  color: var(--text-dark);
+}
+
+.fan-speed-control {
+  margin-top: 20px;
+}
+
+.speed-slider {
+  width: 100%;
+  margin: 10px 0;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+}
+
+.speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  cursor: pointer;
+}
+
+.dark-mode .speed-slider::-webkit-slider-thumb {
+  background: var(--primary-dark);
+}
+
+.speed-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.speed-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.8em;
+}
+

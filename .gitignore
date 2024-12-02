@@ -1,0 +1,5 @@
+# Ignore arquivos grandes ou temporários
+node_modules/
+*.log
+dist/
+*.tmp

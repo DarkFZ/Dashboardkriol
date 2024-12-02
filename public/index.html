@@ -1,0 +1,95 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KriolSync - Login</title>
+
+<link rel="stylesheet" href="style1.css">
+</head>
+<body class="light-mode">
+  <div class="light-mode" id="body">
+  <button class="theme-toggle1" onclick="toggleTheme()">🌓</button>
+  
+  <div class="login-container">
+    <div class="logo-container">
+      <svg class="kriol-logo" viewBox="0 0 100 100">
+        <circle class="logo-circle" cx="50" cy="50" r="45" />
+        <path class="logo-k" d="M35,20 v60 M35,50 L65,20 M35,50 L65,80" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="8" 
+          stroke-linecap="round"
+        />
+        <circle cx="50" cy="50" r="15" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="4"
+        />
+      </svg>
+      <h1>KriolSync</h1>
+    </div>
+    
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input  type="text" id="username" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+      </div>
+      
+      <button type="submit">Login</button>
+      <button class="dash" onclick="go()">dashboard</button>
+      <div class="error-message" id="errorMessage">Invalid username or password</div>
+    </form>
+  </div>
+</div>
+  <script>
+
+    function go(){
+      window.location.href ='dashboard.html'
+    }
+    let isDarkMode = false;
+
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle('light-mode');
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('authToken', data.token);
+          window.location.href = 'dashboard.html';
+        } else {
+          document.getElementById('errorMessage').style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        document.getElementById('errorMessage').style.display = 'block';
+      }
+    }
+
+    // Check if already logged in
+    if (localStorage.getItem('authToken')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+  
+</body>
+</html>
