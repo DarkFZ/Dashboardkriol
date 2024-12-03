@@ -312,7 +312,7 @@ updateCharts();
 function toggleVideoFeed(active) {
   const videoFeed = document.getElementById('videoFeed');
   if (active) {
-    videoFeed.innerHTML = '<img src="http://esp8266-camera-url/stream" style="max-width: 100%; height: auto;" alt="Live video feed">';
+    videoFeed.innerHTML = '<img src="http://192.168.1.60:8080" style="max-width: 100%; height: auto;" alt="Live video feed">';
   } else {
     videoFeed.innerHTML = 'Video Feed';
   }
